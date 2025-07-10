@@ -26,6 +26,11 @@ public class TagLocalServiceWrapper
 		_tagLocalService = tagLocalService;
 	}
 
+	@Override
+	public com.document.data.model.Tag addTag(String tagName) {
+		return _tagLocalService.addTag(tagName);
+	}
+
 	/**
 	 * Adds the tag to the database. Also notifies the appropriate model listeners.
 	 *
@@ -211,6 +216,13 @@ public class TagLocalServiceWrapper
 	}
 
 	@Override
+	public com.document.data.model.Tag editTag(long tagId, String tagName)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _tagLocalService.editTag(tagId, tagName);
+	}
+
+	@Override
 	public com.document.data.model.Tag fetchTag(long tagId) {
 		return _tagLocalService.fetchTag(tagId);
 	}
@@ -220,6 +232,11 @@ public class TagLocalServiceWrapper
 		getActionableDynamicQuery() {
 
 		return _tagLocalService.getActionableDynamicQuery();
+	}
+
+	@Override
+	public java.util.List<com.document.data.model.Tag> getAllTag() {
+		return _tagLocalService.getAllTag();
 	}
 
 	@Override

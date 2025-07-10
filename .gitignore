@@ -18,7 +18,7 @@ gradle-local.properties
 bundles/
 configs/local
 **/.settings/
-
+**/bin/
 
 **/.sonar
 

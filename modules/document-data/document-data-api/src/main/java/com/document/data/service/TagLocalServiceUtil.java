@@ -37,6 +37,9 @@ public class TagLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.document.data.service.impl.TagLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static Tag addTag(String tagName) {
+		return getService().addTag(tagName);
+	}
 
 	/**
 	 * Adds the tag to the database. Also notifies the appropriate model listeners.
@@ -196,6 +199,12 @@ public class TagLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
+	public static Tag editTag(long tagId, String tagName)
+		throws PortalException {
+
+		return getService().editTag(tagId, tagName);
+	}
+
 	public static Tag fetchTag(long tagId) {
 		return getService().fetchTag(tagId);
 	}
@@ -204,6 +213,10 @@ public class TagLocalServiceUtil {
 		getActionableDynamicQuery() {
 
 		return getService().getActionableDynamicQuery();
+	}
+
+	public static List<Tag> getAllTag() {
+		return getService().getAllTag();
 	}
 
 	public static

@@ -20,6 +20,6 @@
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
 
-		<reference entity="Tag" />
+		<reference entity="Tag" package-path="com.document.data"/>
 	</entity>
 </service-builder>

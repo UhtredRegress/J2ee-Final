@@ -53,6 +53,7 @@ public interface TagLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.document.data.service.impl.TagLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the tag local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link TagLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public Tag addTag(String tagName);
 
 	/**
 	 * Adds the tag to the database. Also notifies the appropriate model listeners.
@@ -188,11 +189,16 @@ public interface TagLocalService
 	public long dynamicQueryCount(
 		DynamicQuery dynamicQuery, Projection projection);
 
+	public Tag editTag(long tagId, String tagName) throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Tag fetchTag(long tagId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Tag> getAllTag();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
