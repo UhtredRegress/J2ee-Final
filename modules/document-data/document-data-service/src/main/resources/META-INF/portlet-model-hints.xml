@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.document.data.model.Document">
+		<field name="documentId" type="long" />
+		<field name="tagId" type="long" />
+		<field name="address" type="String" />
+		<field name="author" type="String" />
+		<field name="yearPublished" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+	</model>
+	<model name="com.document.data.model.Tag">
+		<field name="tagId" type="long" />
+		<field name="tagName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+	</model>
+</model-hints>
