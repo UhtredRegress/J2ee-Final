@@ -11,6 +11,14 @@
 .sass_cache_*.css
 _sass_cache_*.css
 cobertura.ser
+.classpath
+.project
+.gradle/
+gradle-local.properties
+bundles/
+configs/local
+modules/.settings/
+
 
 **/.sonar
 
