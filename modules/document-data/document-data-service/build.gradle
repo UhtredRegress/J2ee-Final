@@ -1,0 +1,12 @@
+dependencies {
+	api project(":modules:document-data:document-data-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+}
+
+buildService {
+	apiDir = "../document-data-api/src/main/java"
+	testDir = "../document-data-test/src/testIntegration/java"
+}
+
+group = "com.document.data"

@@ -1,0 +1,10 @@
+Bundle-Name: document-data-api
+Bundle-SymbolicName: com.document.data.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.document.data.exception,\
+	com.document.data.model,\
+	com.document.data.service,\
+	com.document.data.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../document-data-service/service.xml
