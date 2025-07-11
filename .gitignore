@@ -20,7 +20,7 @@ configs/local
 **/.settings/
 **/bin/
 **/build/
-
+upload/
 **/.sonar
 
 /*.ant-*

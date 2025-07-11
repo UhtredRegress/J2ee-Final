@@ -116,6 +116,8 @@ public class DocumentPersistenceTest {
 
 		newDocument.setTagId(RandomTestUtil.nextLong());
 
+		newDocument.setTitle(RandomTestUtil.randomString());
+
 		newDocument.setAddress(RandomTestUtil.randomString());
 
 		newDocument.setAuthor(RandomTestUtil.randomString());
@@ -135,6 +137,8 @@ public class DocumentPersistenceTest {
 			existingDocument.getDocumentId(), newDocument.getDocumentId());
 		Assert.assertEquals(
 			existingDocument.getTagId(), newDocument.getTagId());
+		Assert.assertEquals(
+			existingDocument.getTitle(), newDocument.getTitle());
 		Assert.assertEquals(
 			existingDocument.getAddress(), newDocument.getAddress());
 		Assert.assertEquals(
@@ -175,8 +179,8 @@ public class DocumentPersistenceTest {
 
 	protected OrderByComparator<Document> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
-			"DocumentData_Document", "documentId", true, "tagId", true,
-			"address", true, "author", true, "yearPublished", true,
+			"DocumentData_Document", "documentId", true, "tagId", true, "title",
+			true, "address", true, "author", true, "yearPublished", true,
 			"createDate", true, "modifiedDate", true);
 	}
 
@@ -393,6 +397,8 @@ public class DocumentPersistenceTest {
 		Document document = _persistence.create(pk);
 
 		document.setTagId(RandomTestUtil.nextLong());
+
+		document.setTitle(RandomTestUtil.randomString());
 
 		document.setAddress(RandomTestUtil.randomString());
 

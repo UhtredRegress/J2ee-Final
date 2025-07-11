@@ -14,6 +14,7 @@
 	<entity local-service="true" name="Document" remote-service="true">
 		<column name="documentId" primary="true" type="long" />
 		<column name="tagId" type="long" />
+		<column name="title" type="String"/>
 		<column name="address" type="String"/>
 		<column name="author" type="String"/>
 		<column name="yearPublished" type="long"/>

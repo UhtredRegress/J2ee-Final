@@ -1,6 +1,7 @@
 create table DocumentData_Document (
 	documentId LONG not null primary key,
 	tagId LONG,
+	title VARCHAR(75) null,
 	address VARCHAR(75) null,
 	author VARCHAR(75) null,
 	yearPublished LONG,

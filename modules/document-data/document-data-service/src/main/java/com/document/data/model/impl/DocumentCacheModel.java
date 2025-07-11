@@ -53,12 +53,14 @@ public class DocumentCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		StringBundler sb = new StringBundler(17);
 
 		sb.append("{documentId=");
 		sb.append(documentId);
 		sb.append(", tagId=");
 		sb.append(tagId);
+		sb.append(", title=");
+		sb.append(title);
 		sb.append(", address=");
 		sb.append(address);
 		sb.append(", author=");
@@ -80,6 +82,13 @@ public class DocumentCacheModel
 
 		documentImpl.setDocumentId(documentId);
 		documentImpl.setTagId(tagId);
+
+		if (title == null) {
+			documentImpl.setTitle("");
+		}
+		else {
+			documentImpl.setTitle(title);
+		}
 
 		if (address == null) {
 			documentImpl.setAddress("");
@@ -121,6 +130,7 @@ public class DocumentCacheModel
 		documentId = objectInput.readLong();
 
 		tagId = objectInput.readLong();
+		title = objectInput.readUTF();
 		address = objectInput.readUTF();
 		author = objectInput.readUTF();
 
@@ -134,6 +144,13 @@ public class DocumentCacheModel
 		objectOutput.writeLong(documentId);
 
 		objectOutput.writeLong(tagId);
+
+		if (title == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(title);
+		}
 
 		if (address == null) {
 			objectOutput.writeUTF("");
@@ -156,6 +173,7 @@ public class DocumentCacheModel
 
 	public long documentId;
 	public long tagId;
+	public String title;
 	public String address;
 	public String author;
 	public long yearPublished;

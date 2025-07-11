@@ -4,6 +4,7 @@
 	<model name="com.document.data.model.Document">
 		<field name="documentId" type="long" />
 		<field name="tagId" type="long" />
+		<field name="title" type="String" />
 		<field name="address" type="String" />
 		<field name="author" type="String" />
 		<field name="yearPublished" type="long" />

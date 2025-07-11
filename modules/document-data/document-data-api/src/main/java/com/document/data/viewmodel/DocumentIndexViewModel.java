@@ -1,5 +1,7 @@
 package com.document.data.viewmodel;
 
+import java.util.Date;
+
 public class DocumentIndexViewModel {
 	private long documentId;
 	private long tagId;
@@ -9,10 +11,19 @@ public class DocumentIndexViewModel {
 	private long yearPublished;
 	private Date createDate;
 	private Date modifiedDate;
+	private String title;
 	
 	public DocumentIndexViewModel() {
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public long getDocumentId() {
 	    return documentId;
 	}

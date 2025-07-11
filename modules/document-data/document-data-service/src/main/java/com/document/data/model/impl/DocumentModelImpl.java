@@ -60,9 +60,9 @@ public class DocumentModelImpl
 
 	public static final Object[][] TABLE_COLUMNS = {
 		{"documentId", Types.BIGINT}, {"tagId", Types.BIGINT},
-		{"address", Types.VARCHAR}, {"author", Types.VARCHAR},
-		{"yearPublished", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}
+		{"title", Types.VARCHAR}, {"address", Types.VARCHAR},
+		{"author", Types.VARCHAR}, {"yearPublished", Types.BIGINT},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -71,6 +71,7 @@ public class DocumentModelImpl
 	static {
 		TABLE_COLUMNS_MAP.put("documentId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("tagId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("title", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("address", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("author", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("yearPublished", Types.BIGINT);
@@ -79,7 +80,7 @@ public class DocumentModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table DocumentData_Document (documentId LONG not null primary key,tagId LONG,address VARCHAR(75) null,author VARCHAR(75) null,yearPublished LONG,createDate DATE null,modifiedDate DATE null)";
+		"create table DocumentData_Document (documentId LONG not null primary key,tagId LONG,title VARCHAR(75) null,address VARCHAR(75) null,author VARCHAR(75) null,yearPublished LONG,createDate DATE null,modifiedDate DATE null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table DocumentData_Document";
@@ -212,6 +213,7 @@ public class DocumentModelImpl
 
 			attributeGetterFunctions.put("documentId", Document::getDocumentId);
 			attributeGetterFunctions.put("tagId", Document::getTagId);
+			attributeGetterFunctions.put("title", Document::getTitle);
 			attributeGetterFunctions.put("address", Document::getAddress);
 			attributeGetterFunctions.put("author", Document::getAuthor);
 			attributeGetterFunctions.put(
@@ -240,6 +242,8 @@ public class DocumentModelImpl
 				(BiConsumer<Document, Long>)Document::setDocumentId);
 			attributeSetterBiConsumers.put(
 				"tagId", (BiConsumer<Document, Long>)Document::setTagId);
+			attributeSetterBiConsumers.put(
+				"title", (BiConsumer<Document, String>)Document::setTitle);
 			attributeSetterBiConsumers.put(
 				"address", (BiConsumer<Document, String>)Document::setAddress);
 			attributeSetterBiConsumers.put(
@@ -288,6 +292,26 @@ public class DocumentModelImpl
 		}
 
 		_tagId = tagId;
+	}
+
+	@JSON
+	@Override
+	public String getTitle() {
+		if (_title == null) {
+			return "";
+		}
+		else {
+			return _title;
+		}
+	}
+
+	@Override
+	public void setTitle(String title) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_title = title;
 	}
 
 	@JSON
@@ -439,6 +463,7 @@ public class DocumentModelImpl
 
 		documentImpl.setDocumentId(getDocumentId());
 		documentImpl.setTagId(getTagId());
+		documentImpl.setTitle(getTitle());
 		documentImpl.setAddress(getAddress());
 		documentImpl.setAuthor(getAuthor());
 		documentImpl.setYearPublished(getYearPublished());
@@ -457,6 +482,7 @@ public class DocumentModelImpl
 		documentImpl.setDocumentId(
 			this.<Long>getColumnOriginalValue("documentId"));
 		documentImpl.setTagId(this.<Long>getColumnOriginalValue("tagId"));
+		documentImpl.setTitle(this.<String>getColumnOriginalValue("title"));
 		documentImpl.setAddress(this.<String>getColumnOriginalValue("address"));
 		documentImpl.setAuthor(this.<String>getColumnOriginalValue("author"));
 		documentImpl.setYearPublished(
@@ -545,6 +571,14 @@ public class DocumentModelImpl
 		documentCacheModel.documentId = getDocumentId();
 
 		documentCacheModel.tagId = getTagId();
+
+		documentCacheModel.title = getTitle();
+
+		String title = documentCacheModel.title;
+
+		if ((title != null) && (title.length() == 0)) {
+			documentCacheModel.title = null;
+		}
 
 		documentCacheModel.address = getAddress();
 
@@ -645,6 +679,7 @@ public class DocumentModelImpl
 
 	private long _documentId;
 	private long _tagId;
+	private String _title;
 	private String _address;
 	private String _author;
 	private long _yearPublished;
@@ -682,6 +717,7 @@ public class DocumentModelImpl
 
 		_columnOriginalValues.put("documentId", _documentId);
 		_columnOriginalValues.put("tagId", _tagId);
+		_columnOriginalValues.put("title", _title);
 		_columnOriginalValues.put("address", _address);
 		_columnOriginalValues.put("author", _author);
 		_columnOriginalValues.put("yearPublished", _yearPublished);
@@ -704,15 +740,17 @@ public class DocumentModelImpl
 
 		columnBitmasks.put("tagId", 2L);
 
-		columnBitmasks.put("address", 4L);
+		columnBitmasks.put("title", 4L);
 
-		columnBitmasks.put("author", 8L);
+		columnBitmasks.put("address", 8L);
 
-		columnBitmasks.put("yearPublished", 16L);
+		columnBitmasks.put("author", 16L);
 
-		columnBitmasks.put("createDate", 32L);
+		columnBitmasks.put("yearPublished", 32L);
 
-		columnBitmasks.put("modifiedDate", 64L);
+		columnBitmasks.put("createDate", 64L);
+
+		columnBitmasks.put("modifiedDate", 128L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

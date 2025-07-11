@@ -5,11 +5,27 @@
 
 package com.document.data.service.impl;
 
+import com.document.data.model.Document;
+import com.document.data.model.Tag;
+import com.document.data.service.TagLocalService;
 import com.document.data.service.base.DocumentLocalServiceBaseImpl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.document.data.viewmodel.DocumentIndexViewModel;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Brian Wing Shun Chan
@@ -19,5 +35,94 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class DocumentLocalServiceImpl extends DocumentLocalServiceBaseImpl {
-
+	@Reference
+	private TagLocalService _tagLocalService;
+	
+	private String fileHandle(File file, String title, Date now) throws IOException {
+		String uploadDir = "/upload";
+		File targetDir = new File(uploadDir);
+		
+		if (!targetDir.exists()) {
+		        targetDir.mkdirs(); 
+		}
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+	    String formattedDate = formatter.format(now);
+	    String fileName = title + formattedDate;
+		
+		File destinationFile = new File(targetDir, fileName);
+		
+		Files.copy(
+		        file.toPath(),
+		        destinationFile.toPath(),
+		        StandardCopyOption.REPLACE_EXISTING
+		    );
+		
+		return uploadDir + "/" + fileName;
+	}
+	public Document addDocument(String title,File file, long tagId, String author, long yearPublished) throws IOException {
+		long documentId = counterLocalService.increment(Document.class.getName());
+		Document doc = super.createDocument(documentId);
+		doc.setTitle(title);
+		doc.setAuthor(author);
+		doc.setTagId(tagId);
+		doc.setYearPublished(yearPublished);
+		Date now = new Date();
+		doc.setCreateDate(now);
+		doc.setModifiedDate(now);
+		String address = fileHandle(file, title, now);
+		doc.setAddress(address);
+		return super.addDocument(doc);
+	}
+	
+	private boolean deleteFile(String filePath) {
+		  File file = new File(filePath);
+		  return file.delete();
+	}
+	
+	public Document editDocument(long documentId, String title, File file, long tagId, String author, long yearPublished) throws PortalException, IOException {
+		Document doc = super.getDocument(documentId);
+		doc.setTitle(title);
+		doc.setAuthor(author);
+		doc.setTagId(tagId);
+		doc.setYearPublished(yearPublished);
+		if (deleteFile(doc.getAddress()) == false) {
+			throw new PortalException();
+		}
+		
+		Date now = new Date();
+		doc.setModifiedDate(now);
+		
+		String address = fileHandle(file, title, now);
+		doc.setAddress(address);
+		
+		return super.updateDocument(doc);
+	}
+	
+	public List<DocumentIndexViewModel> getDocumentViewModel(int start, int end) throws PortalException {
+		List<Document> listDoc = super.getDocuments(start, end);
+		HashMap<Long, String> tagDiction = new HashMap<Long, String>();
+		List<DocumentIndexViewModel> result = new ArrayList<DocumentIndexViewModel>();
+		
+		for (Document doc: listDoc) {
+			DocumentIndexViewModel docView = new DocumentIndexViewModel();
+			docView.setDocumentId(doc.getDocumentId());
+			docView.setTagId(doc.getTagId());
+			docView.setAddress(doc.getAddress());
+			
+			if (!tagDiction.containsKey(doc.getTagId())) {
+				String tagName = _tagLocalService.getTag(docView.getTagId()).getTagName();
+				tagDiction.put(docView.getTagId(), tagName);
+			}
+			docView.setTagName(tagDiction.get(docView.getTagId()));
+			docView.setAuthor(doc.getAuthor());
+			docView.setCreateDate(doc.getCreateDate());
+			docView.setModifiedDate(doc.getModifiedDate());
+			docView.setYearPublished(doc.getYearPublished());
+			docView.setTitle(doc.getTitle());
+			result.add(docView);
+		}
+		return result;
+	}
+	
 }

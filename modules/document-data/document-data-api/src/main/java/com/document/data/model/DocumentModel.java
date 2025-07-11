@@ -75,6 +75,21 @@ public interface DocumentModel extends BaseModel<Document> {
 	public void setTagId(long tagId);
 
 	/**
+	 * Returns the title of this document.
+	 *
+	 * @return the title of this document
+	 */
+	@AutoEscape
+	public String getTitle();
+
+	/**
+	 * Sets the title of this document.
+	 *
+	 * @param title the title of this document
+	 */
+	public void setTitle(String title);
+
+	/**
 	 * Returns the address of this document.
 	 *
 	 * @return the address of this document

@@ -35,6 +35,7 @@ public class DocumentWrapper
 
 		attributes.put("documentId", getDocumentId());
 		attributes.put("tagId", getTagId());
+		attributes.put("title", getTitle());
 		attributes.put("address", getAddress());
 		attributes.put("author", getAuthor());
 		attributes.put("yearPublished", getYearPublished());
@@ -56,6 +57,12 @@ public class DocumentWrapper
 
 		if (tagId != null) {
 			setTagId(tagId);
+		}
+
+		String title = (String)attributes.get("title");
+
+		if (title != null) {
+			setTitle(title);
 		}
 
 		String address = (String)attributes.get("address");
@@ -165,6 +172,16 @@ public class DocumentWrapper
 	}
 
 	/**
+	 * Returns the title of this document.
+	 *
+	 * @return the title of this document
+	 */
+	@Override
+	public String getTitle() {
+		return model.getTitle();
+	}
+
+	/**
 	 * Returns the year published of this document.
 	 *
 	 * @return the year published of this document
@@ -247,6 +264,16 @@ public class DocumentWrapper
 	@Override
 	public void setTagId(long tagId) {
 		model.setTagId(tagId);
+	}
+
+	/**
+	 * Sets the title of this document.
+	 *
+	 * @param title the title of this document
+	 */
+	@Override
+	public void setTitle(String title) {
+		model.setTitle(title);
 	}
 
 	/**

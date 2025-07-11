@@ -27,6 +27,8 @@ public class DocumentTable extends BaseTable<DocumentTable> {
 		"documentId", Long.class, Types.BIGINT, Column.FLAG_PRIMARY);
 	public final Column<DocumentTable, Long> tagId = createColumn(
 		"tagId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<DocumentTable, String> title = createColumn(
+		"title", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<DocumentTable, String> address = createColumn(
 		"address", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<DocumentTable, String> author = createColumn(
