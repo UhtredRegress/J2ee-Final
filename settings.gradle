@@ -13,3 +13,12 @@ buildscript {
 }
 
 apply plugin: "com.liferay.workspace"
+
+rootProject.name = "j2ee"
+
+
+include(
+    "modules:document-data:document-data-api",
+    "modules:document-data:document-data-service",
+    "modules:document-web"
+)

@@ -19,6 +19,7 @@ bundles/
 configs/local
 **/.settings/
 **/bin/
+**/build/
 
 **/.sonar
 
