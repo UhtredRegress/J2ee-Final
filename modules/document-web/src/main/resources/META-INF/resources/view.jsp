@@ -11,7 +11,7 @@
 </liferay-portlet:renderURL>
 
 
-<div class="d-flex gap-2 m-4">
-    <a href="${documentIndexURL }" cssClass="btn btn-primary">Document</a>
-    <a href="${tagIndexURL}" cssClass="btn btn-success">Tag</a>
+<div class="gap-2 m-4">
+    <a href="${documentIndexURL }" class="btn btn-primary">Document</a>
+    <a href="${tagIndexURL}" class="btn btn-success">Tag</a>
 </div>
