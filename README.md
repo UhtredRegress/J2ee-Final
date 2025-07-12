@@ -7,7 +7,7 @@ A simple, modular web-based application built using **Java EE** and **Liferay MV
 ## 🔧 Tech Stack
 
 - **Java EE (JSP)**
-- **Liferay MVC Framework**
+- **Liferay MVC Portlet**
 - **PostgreSQL Database**
 - **Apache Tomcat**
 - **Gradle Build Tool**
@@ -28,8 +28,7 @@ A simple, modular web-based application built using **Java EE** and **Liferay MV
 
 | Module | Description |
 |--------|-------------|
-| `document-data` | Contains service builder-generated code for persistence, service APIs, and model objects |
-| `document-service` | Business logic layer that retrieves data, applies logic, and returns ViewModels |
+| `document-data` | Contains service builder-generated code for persistence, service APIs, and view model  |
 | `document-web` | User interface layer with Liferay portlets (MVC), controllers, and JSP pages |
 
 ---
