@@ -52,6 +52,15 @@ public class DocumentLocalServiceUtil {
 		return getService().addDocument(document);
 	}
 
+	public static Document addDocument(
+			String title, java.io.File file, long tagId, String author,
+			long yearPublished)
+		throws java.io.IOException {
+
+		return getService().addDocument(
+			title, file, tagId, author, yearPublished);
+	}
+
 	/**
 	 * Creates a new document with the primary key. Does not add the document to the database.
 	 *
@@ -198,6 +207,15 @@ public class DocumentLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
+	public static Document editDocument(
+			long documentId, String title, java.io.File file, long tagId,
+			String author, long yearPublished)
+		throws java.io.IOException, PortalException {
+
+		return getService().editDocument(
+			documentId, title, file, tagId, author, yearPublished);
+	}
+
 	public static Document fetchDocument(long documentId) {
 		return getService().fetchDocument(documentId);
 	}
@@ -241,6 +259,13 @@ public class DocumentLocalServiceUtil {
 	 */
 	public static int getDocumentsCount() {
 		return getService().getDocumentsCount();
+	}
+
+	public static List<com.document.data.viewmodel.DocumentIndexViewModel>
+			getDocumentViewModel(int start, int end)
+		throws PortalException {
+
+		return getService().getDocumentViewModel(start, end);
 	}
 
 	public static

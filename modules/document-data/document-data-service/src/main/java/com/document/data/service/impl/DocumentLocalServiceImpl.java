@@ -39,26 +39,47 @@ public class DocumentLocalServiceImpl extends DocumentLocalServiceBaseImpl {
 	private TagLocalService _tagLocalService;
 	
 	private String fileHandle(File file, String title, Date now) throws IOException {
-		String uploadDir = "/upload";
-		File targetDir = new File(uploadDir);
-		
-		if (!targetDir.exists()) {
-		        targetDir.mkdirs(); 
-		}
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-	    String formattedDate = formatter.format(now);
-	    String fileName = title + formattedDate;
-		
-		File destinationFile = new File(targetDir, fileName);
-		
-		Files.copy(
-		        file.toPath(),
-		        destinationFile.toPath(),
-		        StandardCopyOption.REPLACE_EXISTING
-		    );
-		
-		return uploadDir + "/" + fileName;
+		try {
+	        if (file == null || !file.exists()) {
+	            throw new IllegalArgumentException("Source file is null or doesn't exist: " + file);
+	        }
+	        String basePath = new File("").getAbsolutePath(); 
+	        String uploadDir = basePath + File.separator + "upload";
+
+	        File targetDir = new File(uploadDir);
+
+	        if (!targetDir.exists()) {
+	            targetDir.mkdirs();
+	        }
+	        
+	        String originalFileName = file.getName();
+	        String extension = "";
+
+	        int i = originalFileName.lastIndexOf('.');
+	        if (i > 0) {
+	            extension = originalFileName.substring(i);
+	        }
+
+	 
+
+	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+	        String formattedDate = formatter.format(now);
+	        String safeTitle = title.replaceAll("[^a-zA-Z0-9-_\\.]", "_");
+	        String fileName = safeTitle + "_" + formattedDate + extension;
+
+	        File destinationFile = new File(targetDir, fileName);
+
+	        System.out.println("Uploading to: " + destinationFile.getAbsolutePath());
+
+	        Files.copy(file.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+	        System.out.println("File successfully copied.");
+	        return "upload/" + fileName;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
 	public Document addDocument(String title,File file, long tagId, String author, long yearPublished) throws IOException {
 		long documentId = counterLocalService.increment(Document.class.getName());
@@ -86,16 +107,18 @@ public class DocumentLocalServiceImpl extends DocumentLocalServiceBaseImpl {
 		doc.setAuthor(author);
 		doc.setTagId(tagId);
 		doc.setYearPublished(yearPublished);
-		if (deleteFile(doc.getAddress()) == false) {
-			throw new PortalException();
-		}
-		
 		Date now = new Date();
 		doc.setModifiedDate(now);
 		
-		String address = fileHandle(file, title, now);
-		doc.setAddress(address);
+		if (file != null && file.exists()) {
+			if (deleteFile(doc.getAddress()) == false) {
+				throw new PortalException();
+			}
+			String address = fileHandle(file, title, now);
+			doc.setAddress(address);
+		} 
 		
+
 		return super.updateDocument(doc);
 	}
 	

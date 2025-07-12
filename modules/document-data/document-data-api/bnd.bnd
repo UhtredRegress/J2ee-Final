@@ -5,6 +5,7 @@ Export-Package:\
 	com.document.data.exception,\
 	com.document.data.model,\
 	com.document.data.service,\
-	com.document.data.service.persistence
+	com.document.data.service.persistence,\
+	com.document.data.viewmodel
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../document-data-service/service.xml

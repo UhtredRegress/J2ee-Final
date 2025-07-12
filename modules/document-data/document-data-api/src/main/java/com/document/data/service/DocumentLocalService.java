@@ -6,6 +6,7 @@
 package com.document.data.service;
 
 import com.document.data.model.Document;
+import com.document.data.viewmodel.DocumentIndexViewModel;
 
 import com.liferay.petra.sql.dsl.query.DSLQuery;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
@@ -24,6 +25,8 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
 import java.util.List;
@@ -66,6 +69,11 @@ public interface DocumentLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public Document addDocument(Document document);
+
+	public Document addDocument(
+			String title, File file, long tagId, String author,
+			long yearPublished)
+		throws IOException;
 
 	/**
 	 * Creates a new document with the primary key. Does not add the document to the database.
@@ -188,6 +196,11 @@ public interface DocumentLocalService
 	public long dynamicQueryCount(
 		DynamicQuery dynamicQuery, Projection projection);
 
+	public Document editDocument(
+			long documentId, String title, File file, long tagId, String author,
+			long yearPublished)
+		throws IOException, PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Document fetchDocument(long documentId);
 
@@ -225,6 +238,10 @@ public interface DocumentLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getDocumentsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<DocumentIndexViewModel> getDocumentViewModel(int start, int end)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();

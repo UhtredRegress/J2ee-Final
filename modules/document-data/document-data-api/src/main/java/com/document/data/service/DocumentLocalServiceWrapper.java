@@ -45,6 +45,16 @@ public class DocumentLocalServiceWrapper
 		return _documentLocalService.addDocument(document);
 	}
 
+	@Override
+	public com.document.data.model.Document addDocument(
+			String title, java.io.File file, long tagId, String author,
+			long yearPublished)
+		throws java.io.IOException {
+
+		return _documentLocalService.addDocument(
+			title, file, tagId, author, yearPublished);
+	}
+
 	/**
 	 * Creates a new document with the primary key. Does not add the document to the database.
 	 *
@@ -216,6 +226,17 @@ public class DocumentLocalServiceWrapper
 	}
 
 	@Override
+	public com.document.data.model.Document editDocument(
+			long documentId, String title, java.io.File file, long tagId,
+			String author, long yearPublished)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   java.io.IOException {
+
+		return _documentLocalService.editDocument(
+			documentId, title, file, tagId, author, yearPublished);
+	}
+
+	@Override
 	public com.document.data.model.Document fetchDocument(long documentId) {
 		return _documentLocalService.fetchDocument(documentId);
 	}
@@ -267,6 +288,14 @@ public class DocumentLocalServiceWrapper
 	@Override
 	public int getDocumentsCount() {
 		return _documentLocalService.getDocumentsCount();
+	}
+
+	@Override
+	public java.util.List<com.document.data.viewmodel.DocumentIndexViewModel>
+			getDocumentViewModel(int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _documentLocalService.getDocumentViewModel(start, end);
 	}
 
 	@Override
