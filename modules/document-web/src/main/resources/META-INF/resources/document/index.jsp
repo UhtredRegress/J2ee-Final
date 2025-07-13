@@ -48,14 +48,9 @@
 						
 					<a href="${documentEditURL}" class="btn btn-sm btn-warning" style="margin-right:0.25rem">Edit</a>
 				
-					<aui:form method="post" action="${deleteDocumentURL}" onSubmit="return confirm('Are you sure to delete?')" cssClass="m-0 p-0">
-						
-						
-						<!-- Wrap the button in a div to ensure spacing works -->
-						<div class="d-inline">
-							<aui:button type="submit" value="Delete" cssClass="btn btn-sm btn-danger" />
-						</div>
-					</aui:form>
+					<form method="post" action="${deleteDocumentURL}" onsubmit="return confirm('Are you sure to delete?')" class="m-0 p-0 d-inline">
+    					<button type="submit" class="btn btn-sm btn-danger">Delete</button>
+					</form>
 				</div>
 	        </liferay-ui:search-container-column-text>
 	    </liferay-ui:search-container-row>

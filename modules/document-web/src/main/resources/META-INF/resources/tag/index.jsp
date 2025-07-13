@@ -34,11 +34,10 @@
 							<a href="${editTagURL}" class="btn btn-sm btn-warning">Edit</a>
 						</div>
 						<div class="d-inline-block">
-							<aui:form method="post" action="${deleteTagURL}" cssClass="d-inline" 
-		          				onSubmit="return confirm('Are you sure you want to delete this tag?')"
-		          				useNamespace="false">
-								<aui:button type="submit" value="Delete" cssClass="btn btn-sm btn-danger" />
-							</aui:form>
+							<form method="post" action="${deleteTagURL}" class="d-inline"
+      onsubmit="return confirm('Are you sure you want to delete this tag?')">
+    							<button type="submit" class="btn btn-sm btn-danger">Delete</button>
+							</form>
 						</div>
 					</td>
 				</tr>
